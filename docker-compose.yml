@@ -1,0 +1,14 @@
+version: "3.3"
+services:
+  ldap:
+    image: osixia/openldap:1.2.3
+    volumes:
+      - ./flowable.ldif:/container/service/slapd/assets/config/bootstrap/ldif/50-bootstrap.ldif
+    environment:
+      - LDAP_ORGANISATION=flowable
+      - LDAP_DOMAIN=flowable.org
+      - LDAP_ADMIN_PASSWORD=secret
+    ports:
+      - 10389:389
+      - 10636:636
+    command: [--copy-service,  --loglevel, debug]
